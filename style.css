@@ -9,6 +9,7 @@
     outline: none;
     scroll-behavior: smooth;
     font-family: 'Poppins', sans-serif;
+    color:#333
 }
 .header .logo {
     display: flex;
@@ -17,8 +18,8 @@
   }
   
   .header .logo img {
-    width: 50px; /* Adjusted size to make the image smaller */
-    height: 50px; /* Same as width for a perfect circle */
+    width: 70px; /* Adjusted size to make the image smaller */
+    height: 70px; /* Same as width for a perfect circle */
     object-fit:initial; /* Ensures the image fits well inside the circle */
     border-radius: 50%; /* Makes the image circular */
     border: 2px solid var(--main-color); /* Optional: Adds a border for better visibility */
@@ -59,7 +60,7 @@ section{
     left: 0;
     width: 100%;
     padding: 2rem 9%;
-    background: var(--bg-color);
+    background:linear-gradient(90deg, #007BFF, #6A0572);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -77,7 +78,7 @@ section{
 }
 .navbar a{
     font-size: 1.7rem;
-    color: var(--text-color);
+    color: white;
     margin-left: 4rem;
     transition: .3s;
     font-weight: bold;
@@ -100,31 +101,44 @@ section{
 }
 .home-img {
     position: relative;
+    
+        padding-right: 1vw; /* Add padding from the right side */
+    
 }
 
 .home-img img {
     width: 35vw;
-    max-width: 400px;
-    border-radius: 20px;
-    animation: floatImage 4s ease-in-out infinite, glow 2s ease-in-out infinite;
+    height: 35vw;
+    max-width: 500px;
+    max-height: 500px;
+    border-radius: 50%;
+    animation: scaleGlow 4s ease-in-out infinite;
 }
 
-@keyframes glow {
+/* Scale and Glow Animation */
+@keyframes scaleGlow {
     0% {
-        box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        transform: scale(1); /* Start with original size */
+        opacity: 0.8; /* Make the image slightly faded */
+        box-shadow: 0 0 15px rgba(217, 0, 255, 0.5); /* Initial soft glow */
     }
     50% {
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.8);
+        transform: scale(1.1); /* Slightly enlarge the image */
+        opacity: 1; /* Full opacity at its largest size */
+        box-shadow: 0 0 30px rgb(47, 0, 255); /* Stronger glow when large */
     }
     100% {
-        box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        transform: scale(1); /* Return to original size */
+        opacity: 0.8; /* Fade out again */
+        box-shadow: 0 0 15px rgba(51, 0, 255, 0.5); /* Soft glow */
     }
 }
+
 
 
 .home-content h3{
     font-size: 3.2rem;
-    font-weight: 700;
+    font-weight: 600;
 }
 
 .home-content h3:nth-last-of-type(2){
@@ -193,23 +207,42 @@ span{
 
 .about-img img {
     width: 35vw;
-    max-width: 400px;
-    border-radius: 20px; /* Optional: Gives the image rounded corners */
-    animation: glow 2.5s ease-in-out infinite;
+    height: 35vw;
+    max-width: 500px;
+    max-height: 500px;
+    border-radius: 50%;
+    animation: scaleGlow 4s ease-in-out infinite, moveFromLeft 4s ease-in-out infinite;
 }
 
-/* Keyframes for the glow animation */
-@keyframes glow {
+/* Scale and Glow Animation */
+@keyframes scaleGlow {
     0% {
-        box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        transform: scale(1); /* Start with original size */
+        opacity: 0.8; /* Make the image slightly faded */
+        box-shadow: 0 0 15px rgba(217, 0, 255, 0.5); /* Initial soft glow */
     }
     50% {
-        box-shadow: 0 0 20px rgba(0, 255, 255, 0.8), 0 0 30px rgba(0, 255, 255, 0.5);
+        transform: scale(1.1); /* Slightly enlarge the image */
+        opacity: 1; /* Full opacity at its largest size */
+        box-shadow: 0 0 30px rgb(47, 0, 255); /* Stronger glow when large */
     }
     100% {
-        box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        transform: scale(1); /* Return to original size */
+        opacity: 0.8; /* Fade out again */
+        box-shadow: 0 0 15px rgba(51, 0, 255, 0.5); /* Soft glow */
     }
 }
+
+/* Moving the image from left to right */
+@keyframes moveFromLeft {
+    0% {
+        transform: translateX(-35%); /* Start from the left (out of view) */
+    }
+    100% {
+        transform: translateX(0); /* Move to the normal position */
+    }
+}
+
 
 
 .heading{
@@ -253,187 +286,493 @@ span{
     transition: .5s ease;
 }
 
-.services-container .services-box:hover{
-    border-color: var(--main-color);
-    transform: scale(1.02);
+/* Base Styling for Service Box */
+.services-container .services-box {
+    flex: 1 1 30rem;
+    background: var(--second-bg-color);
+    padding: 3rem 2rem 4rem;
+    border-radius: 1.5rem;
+    text-align: center;
+    border: 0.2rem solid var(--bg-color);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.5s ease; /* Smooth transitions */
+    overflow: hidden; /* Prevents the background gradient from overflowing */
+    position: relative; /* Positioning for the inner gradient */
 }
 
-.services-box i{
-    font-size: 7rem;
+/* Hover Effect: Zoom, Shadow, and Gradient */
+.services-container .services-box:hover {
+    transform: scale(1.05); /* Slight zoom effect */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2), 0 0 30px var(--main-color); /* Enhanced shadow */
+}
+
+/* Gradient background transition */
+.services-container .services-box:hover {
+    background: linear-gradient(135deg, rgba(255, 125, 69, 0.8), rgba(255, 125, 69, 0.2));
+}
+
+/* Icon Styling */
+.services-box i {
+    font-size: 6.5rem;
     color: var(--main-color);
+    transition: transform 0.3s ease, color 0.3s ease; /* Smooth icon transition */
 }
 
-.services-boxh3{
-    font-size: 2.6rem;
+/* Icon Hover Effect */
+.services-container .services-box:hover i {
+    transform: translateY(-10px); /* Lifts the icon */
+    color: var(--second-bg-color); /* Changes icon color */
 }
 
-.services-box p{
+/* Title Styling */
+.services-boxh3 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-top: 2rem; /* Adds space between icon and title */
+    transition: color 0.3s ease; /* Smooth color transition */
+}
+
+/* Title Hover Effect */
+.services-container .services-box:hover .services-boxh3 {
+    color: var(--second-bg-color); /* Changes title color to match the icon */
+}
+
+/* Description Styling */
+.services-box p {
     font-size: 1.6rem;
     margin: 1rem 0 3rem;
+    color: var(--text-color);
+    transition: color 0.3s ease; /* Smooth color transition */
 }
 
-.portfolio{
-    background: var(--second-bg-color);
+/* Description Hover Effect */
+.services-container .services-box:hover p {
+    color: var(--second-bg-color); /* Changes description color */
 }
 
-.portfolio h2{
-    margin-bottom: 4rem;
-}
-
-.portfolio-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2.5rem;
-    align-items: center;
-}
-
-.portfolio-container .portfolio-box{
-    font-size: 1.4rem;
-    color: #f0f4f8;
-    position: relative;
-    border-radius: 2rem;
-    box-shadow: 0 0 1rem var(--bg-color);
-    overflow: hidden;
-    display: flex;
-}
-
-.portfolio-box img {
-    width: 100%;
-    height: 300px; /* Fixed height for uniformity */
-    object-fit: cover; /* Ensures the image is cropped to fit the box */
-    transition: transform 0.5s ease; /* Smooth hover effect */
-}
-
-
-.portfolio-box:hover img{
-    transform: scale(1.1);
-}
-
-.portfolio-box .portfolio-layer {
+/* Optional: Add a Decorative Border to the Bottom of Each Box */
+.services-container .services-box::after {
+    content: '';
     position: absolute;
     bottom: 0;
     left: 0;
     width: 100%;
+    height: 5px;
+    background: var(--main-color);
+    transform: scaleX(0); /* Initially hidden */
+    transition: transform 0.3s ease; /* Smooth border reveal */
+}
+
+/* Hover Effect for Bottom Border */
+.services-container .services-box:hover::after {
+    transform: scaleX(1); /* Reveals the bottom border on hover */
+}
+
+
+/* Portfolio Section */
+.portfolio {
+    background: var(--second-bg-color);
+    padding: 5rem 8%;
+}
+
+.portfolio h2 {
+    font-size: 3.6rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--text-color);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Portfolio Container */
+.portfolio-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Dynamic and responsive grid */
+    gap: 2.5rem;
+    justify-items: center;
+}
+
+/* Portfolio Box */
+.portfolio-container .portfolio-box {
+    position: relative;
+    width: 100%;
+    height: 320px;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    background-color: #fff; /* Background for better visibility */
+}
+
+/* Hover effect on Portfolio Box */
+.portfolio-container .portfolio-box:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2); /* Larger shadow */
+}
+
+/* Image Styling */
+.portfolio-box img {
+    width: 100%;
     height: 100%;
-    background: linear-gradient(rgba(0, 0, 0, 0.1), var(--main-color));
+    object-fit: cover;
+    transition: transform 0.4s ease, opacity 0.4s ease;
+    border-radius: 1rem;
+}
+
+/* Hover effect on Image */
+.portfolio-box:hover img {
+    transform: scale(1.1);
+    opacity: 0.85;
+}
+
+/* Portfolio Layer - Content Overlay */
+.portfolio-box .portfolio-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4); /* Dark semi-transparent overlay */
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     text-align: center;
-    padding: 0 4rem;
-    transform: translateY(100%); 
-    transition: transform 0.5s ease; 
+    padding: 0 2rem;
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
+/* Portfolio Layer on Hover */
 .portfolio-box:hover .portfolio-layer {
-    transform: translateY(0); 
+    opacity: 1;
+    transform: scale(1); /* Zoom in effect */
 }
 
-.portfolio-layer h4{
-    font-size: 1.6rem;
-    margin: .3rem 0 1rem;
+/* Portfolio Layer Heading */
+.portfolio-layer h4 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--second-bg-color);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
 }
 
-.portfolio-layer a{
+/* Portfolio Layer Description */
+.portfolio-layer p {
+    font-size: 1.4rem;
+    font-weight: 400;
+    color: var(--second-bg-color);
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+}
+
+/* Portfolio Layer Button - Link */
+.portfolio-layer a {
     display: inline-flex;
     justify-content: center;
     align-items: center;
     width: 5rem;
     height: 5rem;
-    background: var(--text-color);
+    background: var(--main-color);
     border-radius: 50%;
+    transition: background 0.3s ease, transform 0.3s ease;
 }
 
-.portfolio-layer a i{
-    font-size: 2rem;
+/* Icon inside the Link */
+.portfolio-layer a i {
+    font-size: 2.2rem;
     color: var(--second-bg-color);
 }
 
-.contact h2{
-    margin-bottom: 3rem;
+/* Hover effect on the Link */
+.portfolio-layer a:hover {
+    background: var(--text-color);
+    transform: scale(1.1); /* Slight zoom */
 }
 
-.contact form{
-    max-width: 70rem;
-    margin: 1rem auto;
+/* Icon Hover Effect */
+.portfolio-layer a:hover i {
+    transform: rotate(360deg); /* Rotating icon on hover */
+    transition: transform 0.5s ease;
+}
+
+/* Responsive Design - Mobile */
+@media screen and (max-width: 768px) {
+    .portfolio-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Adapt for smaller screens */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .portfolio h2 {
+        font-size: 2.8rem; /* Smaller title size on mobile */
+    }
+}
+/*==================== Contact Section ====================*/
+.contact {
+    /* background: url('https://th.bing.com/th/id/OIP.U3-UYgiyT_IBu3wntQ23vQHaGL?rs=1&pid=ImgDetMain') ; */
+    padding: 5rem 12%;
+    color: var(--text-color);
     text-align: center;
-    margin-bottom: 3rem;
+    position: relative;
 }
 
-.contact form .input-box{
+/* Contact Heading */
+.contact h2 {
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-bottom: 4rem;
+    color: var(--main-color);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    position: relative;
+    display: inline-block;
+}
+
+/* Underline effect for heading */
+.contact h2 span {
+    color: var(--text-color);
+}
+
+/* Contact Form Styling */
+.contact form {
+   
+    max-width: 60rem;
+    margin: 0 auto;
+    padding: 3rem;
+    background: #ffffff;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.contact form:hover {
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+/* Input and Textarea Fields */
+.contact form .input-box {
     display: flex;
     justify-content: space-between;
+    gap: 1.5rem;
     flex-wrap: wrap;
 }
 
 .contact form .input-box input,
-.contact form textarea{
+.contact form textarea {
     width: 100%;
     padding: 1.5rem;
     font-size: 1.6rem;
     color: var(--text-color);
     background: var(--second-bg-color);
+    border: 2px solid var(--bg-color);
     border-radius: .8rem;
-    margin: .7rem 0;
+    margin: 1rem 0;
+    transition: all 0.3s ease;
 }
 
-.contact form .input-box input{
-    width: 49%;
+/* Interactive focus effect */
+.contact form .input-box input:focus,
+.contact form textarea:focus {
+    outline: none;
+    border-color: var(--main-color);
+    background: #f3f3f3;
 }
 
-.contact form textarea{
+/* Specific Styling for Input Fields */
+.contact form .input-box input {
+    width: 48%;
+}
+
+.contact form textarea {
     resize: none;
+    height: 180px;
 }
 
-.contact form .btn{
-    margin-top: 2rem;
+/* Submit Button Styling */
+.contact form .btn {
+    width: 100%;
+    padding: 1.4rem;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #fff;
+    background: var(--main-color);
+    border: none;
+    border-radius: .8rem;
     cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
+/* Button Hover Effect */
+.contact form .btn:hover {
+    background: var(--text-color);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Button Active Effect */
+.contact form .btn:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .contact form .input-box {
+        flex-direction: column;
+    }
+
+    .contact form .input-box input {
+        width: 100%;
+    }
+
+    .contact h2 {
+        font-size: 2.8rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .contact h2 {
+        font-size: 2.4rem;
+    }
+
+    .contact form {
+        padding: 2rem;
+    }
+}
+
+/* Footer Section */
 .footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    padding: 2rem 9%;
-    background: var(--second-bg-color);
-    margin-top: 4rem; /* Added some space at the top */
+    padding: 3rem 8%;
+    background: var(--main-color);
+    margin-top: 4rem;
+    border-radius: 1rem; /* Rounded corners for the footer */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Add subtle shadow */
+    transition: background 0.3s ease; /* Smooth transition on background hover */
 }
 
+.footer:hover {
+    background: var(--second-bg-color); /* Change background on hover */
+}
+
+/* Footer Text */
 .footer-text {
     font-size: 1.6rem;
+    color:black;
     flex: 1;
+    text-align: left; /* Align text to the left */
 }
 
 .footer-text p {
+    font-size: 2.4rem;
+    color: black;
     text-align: left;
+    margin: 0;
+    line-height: 1.6;
 }
 
+/* Footer Social Media Icons */
 .footer-iconTop {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 1rem;
+    gap: 1rem; /* Adds space between social media icons */
+    margin-top: 1.5rem;
 }
 
 .footer-iconTop a {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    padding: .8rem;
-    background: var(--main-color);
-    border-radius: .8rem;
-    transition: .5s ease;
+    padding: 1rem;
+    background: var(--second-bg-color);
+    border-radius: 50%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    cursor: pointer;
 }
 
 .footer-iconTop a:hover {
-    box-shadow: 0 0 1rem var(--main-color);
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Add a shadow on hover */
+    background-color: var(--main-color); /* Background color change on hover */
 }
 
 .footer-iconTop a i {
-    font-size: 2.4rem;
-    color: var(--second-bg-color);
+    font-size: 2.5rem;
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+/* Icon Hover Effect */
+.footer-iconTop a:hover i {
+    color: #fff; /* Change icon color on hover */
+}
+
+/* Footer Links Section (Optional) */
+.footer-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    margin-top: 1.5rem;
+}
+
+.footer-links a {
+    font-size: 1.6rem;
+    color: #f0f4f8;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: var(--main-color); /* Color change for links on hover */
+}
+
+/* Footer Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+    .footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-text {
+        font-size: 1.4rem;
+        margin-bottom: 1rem;
+    }
+
+    .footer-iconTop {
+        margin-top: 2rem; /* Increase spacing for mobile */
+    }
+
+    .footer-links {
+        flex-direction: column;
+        margin-top: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .footer {
+        padding: 2rem 5%;
+    }
+
+    .footer-text {
+        font-size: 1.2rem; /* Smaller font size for mobile */
+    }
+
+    .footer-iconTop a {
+        padding: 1rem;
+    }
 }
 
 
