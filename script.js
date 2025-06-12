@@ -58,3 +58,33 @@ const typed = new Typed('.multiple-text', {
     backDelay: 1000,
     loop: true
 });
+
+/*==================== Form Submission & Auto Clear ====================*/
+const form = document.getElementById("contactForm");
+
+if (form) {
+    form.addEventListener("submit", function (e) {
+        e.preventDefault(); // Prevent default form submit
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: form.method,
+            body: formData,
+            headers: {
+                Accept: "application/json",
+            },
+        })
+            .then(response => {
+                if (response.ok) {
+                    alert("Message sent successfully!");
+                    form.reset(); // Clear all fields
+                } else {
+                    alert("Failed to send message. Please try again.");
+                }
+            })
+            .catch(error => {
+                alert("An error occurred. Please try again.");
+                console.error(error);
+            });
+    });
+}
